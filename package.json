@@ -1,0 +1,37 @@
+{
+  "name": "shottr-handler-aws",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "postinstall": "patch-package",
+    "dev": "sst dev",
+    "build": "sst build",
+    "deploy": "sst deploy",
+    "remove": "sst remove",
+    "console": "sst console",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .cjs,.js,.mjs,.ts"
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.2",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "aws-cdk-lib": "2.110.1",
+    "constructs": "10.3.0",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
+    "prettier": "^3.1.1",
+    "sst": "^2.38.4",
+    "typescript": "^5.3.3"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "resolutions": {
+    "busboy": "^1.0.0"
+  }
+}

@@ -1,0 +1,32 @@
+diff --git a/node_modules/partparse/index.d.ts b/node_modules/partparse/index.d.ts
+index 31bdc78..fccab2e 100644
+--- a/node_modules/partparse/index.d.ts
++++ b/node_modules/partparse/index.d.ts
+@@ -1,6 +1,7 @@
+-declare module "lambda-multipart-parser" {
++declare module "partparse" {
+     import {
+         APIGatewayProxyEvent,
++        APIGatewayProxyEventV2,
+     } from "aws-lambda"
+ 
+     interface MultipartFile {
+@@ -13,5 +14,5 @@ declare module "lambda-multipart-parser" {
+ 
+     type MultipartRequest = { files: MultipartFile[] } & Record<string, string>
+ 
+-    export function parse (event: APIGatewayProxyEvent): Promise<MultipartRequest>
++    export function parse (event: APIGatewayProxyEvent | APIGatewayProxyEventV2): Promise<MultipartRequest>
+ }
+diff --git a/node_modules/partparse/index.js b/node_modules/partparse/index.js
+index d5bd6ac..2e30586 100644
+--- a/node_modules/partparse/index.js
++++ b/node_modules/partparse/index.js
+@@ -44,6 +44,7 @@ const parse = (event) => new Promise((resolve, reject) => {
+                 uploadFile.contentType = mimeType;
+                 uploadFile.encoding = encoding;
+                 uploadFile.fieldname = fieldname;
++                uploadFile.size = Buffer.byteLength(uploadFile.content);
+                 result.files.push(uploadFile);
+             }
+         });
