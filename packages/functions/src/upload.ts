@@ -2,6 +2,7 @@ import { ApiHandler } from 'sst/node/api';
 import { Config } from 'sst/node/config';
 import { parse } from 'partparse';
 import { Bucket } from 'sst/node/bucket';
+import { StaticSite } from 'sst/node/site';
 import crypto from 'crypto';
 import {
   HeadObjectCommand,
@@ -95,17 +96,17 @@ export const create = ApiHandler(async (evt) => {
     // create an obfuscated filename, and ensure it is unique
     const newFilename = await uniqueFilenameForBucket(
       file.filename,
-      Bucket.public.bucketName,
+      Bucket.storage.bucketName,
     );
 
     // upload file to s3, and make public
     console.log(
-      `Uploading ${file.filename} to ${Bucket.public.bucketName} as ${newFilename}...`,
+      `Uploading ${file.filename} to ${Bucket.storage.bucketName} as ${newFilename}...`,
     );
 
     const client = new S3Client({});
     const command = new PutObjectCommand({
-      Bucket: Bucket.public.bucketName,
+      Bucket: Bucket.storage.bucketName,
       Key: newFilename,
       Body: file.content,
       ContentType: file.contentType,
@@ -116,9 +117,13 @@ export const create = ApiHandler(async (evt) => {
     await client.send(command);
 
     // return the url to the file
+    const domain =
+      process.env.CDN_DOMAIN && process.env.CDN_DOMAIN !== ''
+        ? process.env.CDN_DOMAIN
+        : `${Bucket.storage.bucketName}.s3.amazonaws.com`;
     return {
       statusCode: 200,
-      body: `SUCCESS: https://${Bucket.public.bucketName}.s3.amazonaws.com/${newFilename}`,
+      body: `SUCCESS: https://${domain}/${newFilename}`,
     };
   } catch (err) {
     return {

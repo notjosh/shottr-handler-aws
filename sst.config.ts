@@ -1,5 +1,6 @@
 import { SSTConfig } from 'sst';
-import { API } from './stacks/ShottrHandlerStack';
+import { ApiStack } from './stacks/ApiStack';
+import { CdnStack } from './stacks/CdnStack';
 
 export default {
   config(_input) {
@@ -9,6 +10,7 @@ export default {
     };
   },
   stacks(app) {
-    app.stack(API);
+    app.stack(CdnStack);
+    app.stack(ApiStack);
   },
 } satisfies SSTConfig;

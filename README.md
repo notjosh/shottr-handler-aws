@@ -6,3 +6,7 @@ $ uuidgen
 ```
 $ yarn sst secrets set UPLOAD_TOKENS [uuid],[uuid],[uuid]
 ```
+
+### TODO
+
+- add metadata key/value for original filename
