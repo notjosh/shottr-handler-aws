@@ -2,7 +2,6 @@ import { ApiHandler } from 'sst/node/api';
 import { Config } from 'sst/node/config';
 import { parse } from 'partparse';
 import { Bucket } from 'sst/node/bucket';
-import { StaticSite } from 'sst/node/site';
 import crypto from 'crypto';
 import {
   HeadObjectCommand,
