@@ -2,6 +2,8 @@
 
 This is a quick SST-based project to handle uploads from Shottr to our own buckets.
 
+Note/warning: the feature isn't officially supported in Shottr, so an app update may break compatibility with this API.
+
 ## Development
 
 Do the usual bootstrappin':
